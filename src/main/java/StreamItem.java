@@ -29,10 +29,21 @@ public class StreamItem implements Iterable<String> {
 	public int getWordsSize() {
 		return words.size();
 	}
+        
+        public void deleteWordAt(int index){
+            words.remove(index);
+        }
 
 	public Iterator<String> iterator() {
 		return words.iterator();
 	}
+        
+        public int containsWord(String word){
+            if(words.contains(word))
+                return 1;
+            
+            return 0;
+        }
 
 	@Override
 	public String toString() {

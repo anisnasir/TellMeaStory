@@ -3,6 +3,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Reads a stream of StreamItems from a file.
@@ -23,6 +25,8 @@ public class StreamItemReader {
 			throw e;
 		}
 
+                //System.out.println("StreamItem: " + line);
+                
 		if (line == null || line.length() == 0)
 			return null;
 
@@ -32,6 +36,7 @@ public class StreamItemReader {
 
 		long timestamp = Long.parseLong(tokens[0]);
 		String[] words = tokens[1].split(" ");
-		return new StreamItem(timestamp, Arrays.asList(words));
+                List<String> list = new LinkedList<String>(Arrays.asList(words));
+		return new StreamItem(timestamp, list);
 	}
 }
