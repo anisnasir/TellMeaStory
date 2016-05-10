@@ -7,40 +7,20 @@
  *   Additions: Hedvig Kjellström, 2012-14
  */  
 
-
-
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeSet;
-import java.util.zip.GZIPInputStream;
+import com.clearspring.analytics.stream.StreamSummary;
 
 
 /**
  *   Implements an inverted index as a Hashtable from words to PostingsLists.
  */
 public class HashedIndex {
-	private HashMap<String,HashSet<Long>> index = new HashMap<String,HashSet<Long>>();
+	public  HashMap<String,HashSet<Long>> index = new HashMap<String,HashSet<Long>>();
+	public StreamSummary<String> summary = new StreamSummary(1000);
 	
 	public void insert( String token, long docID) {	
+		summary.offer(token);
 		if(index.containsKey(token)) {
 			index.get(token).add(docID);
 
@@ -51,10 +31,11 @@ public class HashedIndex {
 		}	
 	}	
 	
-	public void remove( String token, long docID) {	
+	public void remove( String token, long docID) {
 		if(index.containsKey(token)) {
-			index.remove(docID);
-
+			index.get(token).remove(docID);
+			if(index.get(token).size() == 0)
+				index.remove(token);
 		}
 	}
 	

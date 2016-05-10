@@ -1,5 +1,6 @@
 
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public class StreamItem implements Iterable<String> {
 	private long timestamp;
-	private List<String> words;
+	private HashSet<String> words;
 	
 
-	StreamItem(long timestamp, List<String> words) {
+	StreamItem(long timestamp, HashSet<String> words) {
 		this.timestamp = timestamp;
 		this.words = words;
 	}
@@ -22,17 +23,13 @@ public class StreamItem implements Iterable<String> {
 		return timestamp;
 	}
 
-	public String getWord(int pos) {
-		return words.get(pos);
-	}
-
 	public int getWordsSize() {
 		return words.size();
 	}
-        
-        public void deleteWordAt(int index){
-            words.remove(index);
-        }
+	
+	public HashSet<String> getWords(){
+		return words;
+	}
 
 	public Iterator<String> iterator() {
 		return words.iterator();
@@ -48,5 +45,9 @@ public class StreamItem implements Iterable<String> {
 	@Override
 	public String toString() {
 		return words.toString();
+	}
+	
+	public void remove(String word) {
+		words.remove(word);
 	}
 }

@@ -3,6 +3,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class StreamItemReader {
 
 		long timestamp = Long.parseLong(tokens[0]);
 		String[] words = tokens[1].split(" ");
-                List<String> list = new LinkedList<String>(Arrays.asList(words));
+        HashSet<String> list = new HashSet<String>(Arrays.asList(words));
 		return new StreamItem(timestamp, list);
 	}
 }

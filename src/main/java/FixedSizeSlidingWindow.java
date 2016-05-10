@@ -1,7 +1,9 @@
 
 import java.util.LinkedList;
 
-
+/*
+ * this class contains the sliding window and drops the ids of a tweet when the window gets full
+ */
 public class FixedSizeSlidingWindow {
 	
 	public int windowSize;

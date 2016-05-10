@@ -14,7 +14,7 @@ import java.util.HashSet;
  * @author amirasoliman
  */
 public class StopWords {
-    private HashMap<String,String> sw_list = new HashMap<String,String>();
+    private HashSet<String> sw_list = new HashSet<String>();
     private BufferedReader in;
     
     public StopWords(BufferedReader input) {
@@ -28,20 +28,14 @@ public class StopWords {
              
               while ((line = in.readLine()) != null)   {
                  
-                 sw_list.put(line, line);
+                 sw_list.add(line.trim());
              }
-             
          }catch( Exception ex) { 
         	ex.printStackTrace();
         }
     }
     
     public boolean contains(String word){
-        boolean exist = false;
-        
-        if(sw_list.get(word)!= null)
-            exist = true;
-        
-        return exist;
+        return sw_list.contains(word);
     }
 }
