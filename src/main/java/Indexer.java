@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 
 public class Indexer {
-    private long lastDocID = 0;
+    long lastDocID = 0;
     HashMap<Long, StreamItem> docIdTweet = new HashMap<Long, StreamItem> ();
     StopWords stopwords;
     

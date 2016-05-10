@@ -18,7 +18,7 @@ public class Main {
 		HashedIndex index = new HashedIndex();
 		
 		//Initialize the slidingWindow
-		int windowSize = 10000;
+		int windowSize = 100;//10000;
 		FixedSizeSlidingWindow slidingWindow = new FixedSizeSlidingWindow(windowSize);
 		
 		// Open the input file
@@ -56,6 +56,7 @@ public class Main {
 			
 			while(item != null) {
 				long docID = indexer.addItem(item);
+                                
 				for(int i =0 ;i< item.getWordsSize();i++) {
 					String word = item.getWord(i);
                                         index.insert(word, docID);
@@ -67,15 +68,15 @@ public class Main {
 				
 				if(deletedItem >= 0 )
 				{
-					StreamItem removedItem = indexer.removeItem(deletedItem);
-					for(int i =0 ;i< removedItem.getWordsSize();i++) {
+                                    
+                                    StreamItem removedItem = indexer.removeItem(deletedItem);
+                                    
+				    for(int i =0 ;i< removedItem.getWordsSize();i++) {
 						String word = removedItem.getWord(i);
-                                                //check that with Anis it's remove not insert
-						index.remove(word, docID);
-                                                indexer.removeItem(docID);
-                                                
-                                                //index.insert(word, docID);
-					}
+                                                //check that with Anis it's remove not insert (index.insert(word, docID);)
+						index.remove(word, deletedItem);
+                                                indexer.removeItem(deletedItem);
+                                    }
 				}
 				
 				item = reader.nextItem();
@@ -85,8 +86,8 @@ public class Main {
         }
         
         
-         for(int i=0; i< indexer.size()-1; i++){
-             System.out.println("jaccard sim between t:" + i + " and t" + i+1 +" = " + indexer.jaccardSim(i, i+1));
+         for(long i=indexer.lastDocID -1, loopcount=0; loopcount <windowSize-2 ; i--, loopcount++){
+             System.out.println("jaccard sim between t:" + i + " and t" + (i-1) +" = " + indexer.jaccardSim(i, i-1));
          }
         
 	}
