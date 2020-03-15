@@ -12,10 +12,12 @@ import java.util.List;
 public class StreamItem implements Iterable<String> {
 	private long timestamp;
 	private HashSet<String> words;
+	String tweet;
 	
 
-	StreamItem(long timestamp, HashSet<String> words) {
+	StreamItem(long timestamp, HashSet<String> words, String tweet) {
 		this.timestamp = timestamp;
+		this.tweet = tweet;
 		this.words = words;
 	}
 

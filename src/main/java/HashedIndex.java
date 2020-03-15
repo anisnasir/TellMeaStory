@@ -16,11 +16,13 @@ import com.clearspring.analytics.stream.StreamSummary;
  *   Implements an inverted index as a Hashtable from words to PostingsLists.
  */
 public class HashedIndex {
-	public  HashMap<String,HashSet<Long>> index = new HashMap<String,HashSet<Long>>();
-	public StreamSummary<String> summary = new StreamSummary(1000);
+	public  HashMap<String,HashSet<Long>> index;
 	
+	HashedIndex() {
+		index = new HashMap<String,HashSet<Long>>();
+		
+	}
 	public void insert( String token, long docID) {	
-		summary.offer(token);
 		if(index.containsKey(token)) {
 			index.get(token).add(docID);
 

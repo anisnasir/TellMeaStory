@@ -38,6 +38,6 @@ public class StreamItemReader {
 		long timestamp = Long.parseLong(tokens[0]);
 		String[] words = tokens[1].split(" ");
         HashSet<String> list = new HashSet<String>(Arrays.asList(words));
-		return new StreamItem(timestamp, list);
+		return new StreamItem(timestamp, list, tokens[1]);
 	}
 }

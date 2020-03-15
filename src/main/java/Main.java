@@ -9,16 +9,15 @@ import java.util.zip.GZIPInputStream;
 public class Main {
 	public static void main (String args [] ) {
 		//Declare the file
-		String inFileName = "/Users/anis/Datasets/yahoo_input/twitter_1000";
+		String inFileName = "/Users/anis/Desktop/tweets/tweets.txt";
 		String inFileNameStopW = "./stopwords.txt";
-
-
-
+		
+		
 		//Initialize HashedIndex
 		HashedIndex index = new HashedIndex();
 
 		//Initialize the slidingWindow
-		int windowSize = 10;//10000;
+		int windowSize = 100000;//10000;
 		FixedSizeSlidingWindow slidingWindow = new FixedSizeSlidingWindow(windowSize);
 
 		// Open the input file
@@ -72,20 +71,27 @@ public class Main {
 						//check that with Anis it's remove not insert (index.insert(word, docID);)
 						index.remove(word, deletedItem);
 					}
-					indexer.removeItem(deletedItem);
 				}
-
 				item = reader.nextItem();
 			}
 		} catch( Exception ex) { 
 			ex.printStackTrace();
 		}
-		System.out.println(index.index);
-		System.out.println(index.summary.peek(10));
-
-		for(long i=indexer.lastDocID -1, loopcount=0; loopcount <windowSize-2 ; i--, loopcount++){
-			System.out.println("jaccard sim between t:" + i + " and t" + (i-1) +" = " + indexer.jaccardSim(i, i-1));
+		long count = 0; 
+		long sum = 0;
+		int counter = 0;
+		for (String word:index.index.keySet()) {
+			//System.out.println(index.index.get(word).size());
+			sum+=index.index.get(word).size();
+			count++;
+			//if( index.index.get(word).size() > 400)
+				//System.out.println(word);
 		}
+		//System.out.println(sum/count);
+		//System.out.println(counter);
+		//System.out.println(indexer.docIdTweet.get(484));
+		Summarizer temp = new Summarizer();
+		temp.getSummary(index.index.get("#Game7"), indexer,100);
 
 	}
 }
